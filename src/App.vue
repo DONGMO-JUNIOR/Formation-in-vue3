@@ -1,47 +1,70 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <div>
+     <!--v-bind Style-->
+     <h2 v-bind:style="{
+      color:highlight
+     }">Inline style</h2>
+     <h2 v-bind:style="headerSizeObject">Style object</h2>
+    <!--v-bind classes-->
+    <h2 class="underline">Underlined text</h2>
+    <h2 v-bind:class="status"> status</h2>
+    <h2 v-bind:class="isPromoted && 'promoted' "> Promoted Movies</h2>
+    <h2 v-bind:class="isSoldout ? 'sold-out' : 'new'">Soldout? movie</h2>
+    <h2 v-bind:class="['new', 'promoted']">Newly promoted movie</h2>
+    <h2 v-bind:class="[isPromoted && 'promoted', isSoldout ? 'sold-out' : 'new']"> Array conditional movie</h2>
+      
+    <!--v-bind attribut-->
+     <h2 v-bind:id="headingId">Heading</h2>
+    <button v-bind:disabled="isDisable">Bind</button>
+    <!--v-bind html-->
+    <div>{{ greet }} {{ name }}</div>
+    <div>{{ channel }}</div>
+    <div v-html="channel"></div>
+    <h1 v-html="hack"></h1>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+    <!--v-bind text-->
+    <div>{{ greet }} {{ name }}</div>
+    <div v-text="channel"></div>
+    <div v-text="name"></div>
+  </div> 
 </template>
 
+<script>
+  export default {
+    name: "App",
+    data(){
+return{
+  greet: 'Hello',
+  name: 'Batman',
+  channel: '<b>codevolution</b>',
+  hack: `<a href='#' onclick= "alert('You have been hacked')"> win a prise! </a>`,
+  headingId: 'heading',
+  isDisable: true,
+  status: "danger",
+  isPromoted: false,
+  isSoldout:false,
+  highlight:'orange',
+  headerSizeObject: {
+    color: 'blue',
+    fontSize: '50px',
+    padding: '15px'
+  }
+}
+    }
+  }
+</script>
+
 <style scoped>
-header {
-  line-height: 1.5;
+.underline{
+  text-decoration: underline ;
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.promoted{
+  color: red
 }
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.sold-out{
+  color: blue
+}
+.new{
+  font-style: italic;
 }
 </style>
